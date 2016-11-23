@@ -34,7 +34,7 @@ public class LambdaTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// test01.
+		// lambda test01.
 		printPersonsWithPredicate(roster, p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() < 25);
 	}
 
