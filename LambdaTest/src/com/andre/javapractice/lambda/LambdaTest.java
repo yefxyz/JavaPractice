@@ -1,9 +1,14 @@
-package com.andre.javapractice;
+package com.andre.javapractice.lambda;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.IntFunction;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 /**
  * LambdaTest.
@@ -31,11 +36,44 @@ public class LambdaTest {
 	}
 
 	/**
+	 * 按重量列表构造苹果列表。
+	 * 
+	 * @param weightList
+	 * @param f
+	 * @return
+	 */
+	public static List<Apple> genApples(List<Integer> weightList, Function<Integer, Apple> f) {
+		List<Apple> appleList = new ArrayList<>();
+		for (Integer weight : weightList) {
+			appleList.add(f.apply(weight));
+		}
+		return appleList;
+	}
+	
+	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// lambda test01.
 		printPersonsWithPredicate(roster, p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() < 25);
+		
+		// ---- 构造函数方法引用 ---- //
+		Supplier<Apple> c1a = ( ) -> new Apple();
+		Supplier<Apple> c1b = Apple::new;
+		Apple c1 = c1b.get();
+		
+		IntFunction<Apple> c2a = (weight) -> new Apple(weight);
+		IntFunction<Apple> c2b = Apple::new;
+		Apple c2 = c2b.apply(5);
+
+		BiFunction<String, Integer, Apple> c3a = (color, weight) -> new Apple(color, weight);
+		BiFunction<String, Integer, Apple> c3b = Apple::new;
+		Apple c3 = c3b.apply("green", 8);
+		
+		List<Integer> weightList = Arrays.asList(7, 3, 4, 10, 8, 6);
+		List<Apple> appleList = genApples(weightList, Apple::new);
+		
+		
 	}
 
 }

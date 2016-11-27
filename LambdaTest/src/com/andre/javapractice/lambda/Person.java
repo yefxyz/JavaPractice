@@ -1,4 +1,4 @@
-package com.andre.javapractice;
+package com.andre.javapractice.lambda;
 
 import java.time.LocalDate;
 
