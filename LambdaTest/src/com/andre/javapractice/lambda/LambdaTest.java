@@ -3,6 +3,7 @@ package com.andre.javapractice.lambda;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -62,9 +63,11 @@ public class LambdaTest {
 		Supplier<Apple> c1b = Apple::new;
 		Apple c1 = c1b.get();
 		
-		IntFunction<Apple> c2a = (weight) -> new Apple(weight);
-		IntFunction<Apple> c2b = Apple::new;
-		Apple c2 = c2b.apply(5);
+		// weight为int。
+		Function<Integer, Apple> c2a = weight -> new Apple(weight); // 有装箱。
+		IntFunction<Apple> c2b = weight -> new Apple(weight); // 无装箱。
+		IntFunction<Apple> c2c = Apple::new; // 构造函数引用。
+		Apple c2 = c2c.apply(5);
 
 		BiFunction<String, Integer, Apple> c3a = (color, weight) -> new Apple(color, weight);
 		BiFunction<String, Integer, Apple> c3b = Apple::new;
@@ -73,7 +76,10 @@ public class LambdaTest {
 		List<Integer> weightList = Arrays.asList(7, 3, 4, 10, 8, 6);
 		List<Apple> appleList = genApples(weightList, Apple::new);
 		
-		
+		// 按重量排序一个列表中的苹果。
+		appleList.sort((a1, a2) -> a1.getWeight().compareTo(a2.getWeight())); // Lambda定义Comparator。
+		appleList.sort(Comparator.comparing(a -> a.getWeight())); // Comparator中的辅助方法comparing接收一个Function接口，用于提取可比较的key，返回一个Comparator。
+		appleList.sort(Comparator.comparing(Apple::getWeight)); // 上一条继续抽象为方法引用形式。
 	}
 
 }
