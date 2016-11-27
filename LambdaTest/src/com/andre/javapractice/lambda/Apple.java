@@ -6,11 +6,13 @@ public class Apple {
 	
 	private String color;
 	
-	public Integer getWeight() {
+	private String country;
+	
+	public int getWeight() {
 		return weight;
 	}
 
-	public void setWeight(Integer weight) {
+	public void setWeight(int weight) {
 		this.weight = weight;
 	}
 
@@ -20,6 +22,14 @@ public class Apple {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 	public Apple() {
@@ -35,4 +45,7 @@ public class Apple {
 		this.weight = weight;
 	}
 	
+	public Integer getIntegerWeight() {
+		return weight;
+	}
 }

@@ -77,9 +77,10 @@ public class LambdaTest {
 		List<Apple> appleList = genApples(weightList, Apple::new);
 		
 		// 按重量排序一个列表中的苹果。
-		appleList.sort((a1, a2) -> a1.getWeight().compareTo(a2.getWeight())); // Lambda定义Comparator。
+		appleList.sort((a1, a2) -> a1.getIntegerWeight().compareTo(a2.getIntegerWeight())); // Lambda定义Comparator。
 		appleList.sort(Comparator.comparing(a -> a.getWeight())); // Comparator中的辅助方法comparing接收一个Function接口，用于提取可比较的key，返回一个Comparator。
 		appleList.sort(Comparator.comparing(Apple::getWeight)); // 上一条继续抽象为方法引用形式。
+		appleList.sort(Comparator.comparing(Apple::getWeight).reversed().thenComparing(Apple::getCountry)); // 比较器复合。
 	}
 
 }
