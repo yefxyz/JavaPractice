@@ -2,6 +2,7 @@ package com.andre.javapractice.stream;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StreamTest {
 
@@ -17,8 +18,13 @@ public class StreamTest {
 			new Dish(Dish.Type.FISH, "salmon", false, 450));
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		// 将两个列表中的数字组成数对。
+		List<Integer> list1 = Arrays.asList(1, 2, 3);
+		List<Integer> list2 = Arrays.asList(3, 4);
+		List<int[]> pairs = list1.stream().flatMap(i -> list2.stream().map(j -> new int[]{i, j}))
+				.collect(Collectors.toList());
+		pairs.stream().forEach(arr -> System.out.println("(" + arr[0] + ", " + arr[1] + ")"));
+		
 	}
 
 }
