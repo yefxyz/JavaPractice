@@ -20,7 +20,7 @@ public class StreamTest {
 			new Dish(Dish.Type.FISH, "salmon", false, 450));
 
 	private static void practice01() {
-		// ½«Á½¸öÁĞ±íÖĞµÄÊı×Ö×é³ÉÊı¶Ô¡£
+		// å°†ä¸¤ä¸ªåˆ—è¡¨ä¸­çš„æ•°å­—ç»„æˆæ•°å¯¹ã€‚
 		List<Integer> list1 = Arrays.asList(1, 2, 3);
 		List<Integer> list2 = Arrays.asList(3, 4);
 		List<int[]> pairs = list1.stream().flatMap(i -> list2.stream().map(j -> new int[]{i, j}))
@@ -42,23 +42,23 @@ public class StreamTest {
 				new Transaction(mario, 2012, 700),
 				new Transaction(alan, 2012, 950));
 
-		// ¸ø³ö2011ËùÓĞ½»Ò×£¬²¢°´½»Ò×¶î´ÓµÍµ½¸ßÅÅĞò¡£
+		// ç»™å‡º2011æ‰€æœ‰äº¤æ˜“ï¼Œå¹¶æŒ‰äº¤æ˜“é¢ä»ä½åˆ°é«˜æ’åºã€‚
 		transactions.stream().filter(t -> t.getYear() == 2011).sorted(Comparator.comparing(Transaction::getValue))
 				.forEach(System.out::println);
-		// ½»Ò×Ô±¶¼ÔÚÄÄĞ©²»Í¬µÄ³ÇÊĞ¹¤×÷¹ı£¿
+		// äº¤æ˜“å‘˜éƒ½åœ¨å“ªäº›ä¸åŒçš„åŸå¸‚å·¥ä½œè¿‡ï¼Ÿ
 		transactions.stream().map(t -> t.getTrader().getCity()).distinct().forEach(System.out::println);
-		// ²éÕÒÀ´×Ô½£ÇÅµÄ½»Ò×Ô±£¬°´Ãû×ÖÅÅĞò¡£
+		// æŸ¥æ‰¾æ¥è‡ªå‰‘æ¡¥çš„äº¤æ˜“å‘˜ï¼ŒæŒ‰åå­—æ’åºã€‚
 		transactions.stream().map(Transaction::getTrader).distinct()
 				.filter(tr -> tr.getCity().equalsIgnoreCase("Cambridge")).sorted(Comparator.comparing(Trader::getName))
 				.forEach(System.out::println);
-		// ·µ»ØËùÓĞ½»Ò×Ô±µÄĞÕÃû£¬°´×ÖÄ¸ÅÅĞò¡£
+		// è¿”å›æ‰€æœ‰äº¤æ˜“å‘˜çš„å§“åï¼ŒæŒ‰å­—æ¯æ’åºã€‚
 		transactions.stream().map(t -> t.getTrader().getName()).distinct().sorted(Comparator.naturalOrder())
 				.forEach(System.out::println);
-		// ÓĞÃ»ÓĞ½»Ò×Ô±ÔÚÃ×À¼¹¤×÷£¿
+		// æœ‰æ²¡æœ‰äº¤æ˜“å‘˜åœ¨ç±³å…°å·¥ä½œï¼Ÿ
 		Optional<Trader> milan_Trader = transactions.stream().map(Transaction::getTrader)
 				.filter(t -> t.getCity().equalsIgnoreCase("Milan")).findAny();
 		System.out.println("Trader work in Milan: " + milan_Trader);
-		
+
 	}
 
 	public static void main(String[] args) {

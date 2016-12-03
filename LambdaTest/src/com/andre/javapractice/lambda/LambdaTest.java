@@ -21,11 +21,16 @@ public class LambdaTest {
 	private static List<Person> roster;
 	static {
 		roster = new ArrayList<>();
-		roster.add(new Person("Marvin", LocalDate.parse("1980-05-01"), Person.Sex.MALE, "13874689281", "marvin@sina.com"));
-		roster.add(new Person("Steve", LocalDate.parse("1997-08-23"), Person.Sex.MALE, "18638659689", "steve01@163.com"));
-		roster.add(new Person("Jane", LocalDate.parse("1995-10-14"), Person.Sex.FEMALE, "18761616688", "janeAnne@outlook.com"));
-		roster.add(new Person("Dolores", LocalDate.parse("2000-01-31"), Person.Sex.FEMALE, "13610102846", "doloresWong@gmail.com"));
-		roster.add(new Person("William", LocalDate.parse("1992-02-14"), Person.Sex.MALE, "13910563827", "williamBlack@westworld.com"));
+		roster.add(
+				new Person("Marvin", LocalDate.parse("1980-05-01"), Person.Sex.MALE, "13874689281", "marvin@sina.com"));
+		roster.add(
+				new Person("Steve", LocalDate.parse("1997-08-23"), Person.Sex.MALE, "18638659689", "steve01@163.com"));
+		roster.add(new Person("Jane", LocalDate.parse("1995-10-14"), Person.Sex.FEMALE, "18761616688",
+				"janeAnne@outlook.com"));
+		roster.add(new Person("Dolores", LocalDate.parse("2000-01-31"), Person.Sex.FEMALE, "13610102846",
+				"doloresWong@gmail.com"));
+		roster.add(new Person("William", LocalDate.parse("1992-02-14"), Person.Sex.MALE, "13910563827",
+				"williamBlack@westworld.com"));
 	}
 
 	public static void printPersonsWithPredicate(List<Person> roster, Predicate<Person> tester) {
@@ -37,7 +42,7 @@ public class LambdaTest {
 	}
 
 	/**
-	 * °´ÖØÁ¿ÁĞ±í¹¹ÔìÆ»¹ûÁĞ±í¡£
+	 * æŒ‰é‡é‡åˆ—è¡¨æ„é€ è‹¹æœåˆ—è¡¨ã€‚
 	 * 
 	 * @param weightList
 	 * @param f
@@ -50,37 +55,37 @@ public class LambdaTest {
 		}
 		return appleList;
 	}
-	
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		// lambda test01.
 		printPersonsWithPredicate(roster, p -> p.getGender() == Person.Sex.MALE && p.getAge() >= 18 && p.getAge() < 25);
-		
-		// ---- ¹¹Ôìº¯Êı·½·¨ÒıÓÃ ---- //
-		Supplier<Apple> c1a = ( ) -> new Apple();
+
+		// ---- æ„é€ å‡½æ•°æ–¹æ³•å¼•ç”¨ ---- //
+		Supplier<Apple> c1a = () -> new Apple();
 		Supplier<Apple> c1b = Apple::new;
 		Apple c1 = c1b.get();
-		
-		// weightÎªint¡£
-		Function<Integer, Apple> c2a = weight -> new Apple(weight); // ÓĞ×°Ïä¡£
-		IntFunction<Apple> c2b = weight -> new Apple(weight); // ÎŞ×°Ïä¡£
-		IntFunction<Apple> c2c = Apple::new; // ¹¹Ôìº¯ÊıÒıÓÃ¡£
+
+		// weightä¸ºintã€‚
+		Function<Integer, Apple> c2a = weight -> new Apple(weight); // æœ‰è£…ç®±ã€‚
+		IntFunction<Apple> c2b = weight -> new Apple(weight); // æ— è£…ç®±ã€‚
+		IntFunction<Apple> c2c = Apple::new; // æ„é€ å‡½æ•°å¼•ç”¨ã€‚
 		Apple c2 = c2c.apply(5);
 
 		BiFunction<String, Integer, Apple> c3a = (color, weight) -> new Apple(color, weight);
 		BiFunction<String, Integer, Apple> c3b = Apple::new;
 		Apple c3 = c3b.apply("green", 8);
-		
+
 		List<Integer> weightList = Arrays.asList(7, 3, 4, 10, 8, 6);
 		List<Apple> appleList = genApples(weightList, Apple::new);
-		
-		// °´ÖØÁ¿ÅÅĞòÒ»¸öÁĞ±íÖĞµÄÆ»¹û¡£
-		appleList.sort((a1, a2) -> a1.getIntegerWeight().compareTo(a2.getIntegerWeight())); // Lambda¶¨ÒåComparator¡£
-		appleList.sort(Comparator.comparing(a -> a.getWeight())); // ComparatorÖĞµÄ¸¨Öú·½·¨comparing½ÓÊÕÒ»¸öFunction½Ó¿Ú£¬ÓÃÓÚÌáÈ¡¿É±È½ÏµÄkey£¬·µ»ØÒ»¸öComparator¡£
-		appleList.sort(Comparator.comparing(Apple::getWeight)); // ÉÏÒ»Ìõ¼ÌĞø³éÏóÎª·½·¨ÒıÓÃĞÎÊ½¡£
-		appleList.sort(Comparator.comparing(Apple::getWeight).reversed().thenComparing(Apple::getCountry)); // ±È½ÏÆ÷¸´ºÏ¡£
+
+		// æŒ‰é‡é‡æ’åºä¸€ä¸ªåˆ—è¡¨ä¸­çš„è‹¹æœã€‚
+		appleList.sort((a1, a2) -> a1.getIntegerWeight().compareTo(a2.getIntegerWeight())); // Lambdaå®šä¹‰Comparatorã€‚
+		appleList.sort(Comparator.comparing(a -> a.getWeight())); // Comparatorä¸­çš„è¾…åŠ©æ–¹æ³•comparingæ¥æ”¶ä¸€ä¸ªFunctionæ¥å£ï¼Œç”¨äºæå–å¯æ¯”è¾ƒçš„keyï¼Œè¿”å›ä¸€ä¸ªComparatorã€‚
+		appleList.sort(Comparator.comparing(Apple::getWeight)); // ä¸Šä¸€æ¡ç»§ç»­æŠ½è±¡ä¸ºæ–¹æ³•å¼•ç”¨å½¢å¼ã€‚
+		appleList.sort(Comparator.comparing(Apple::getWeight).reversed().thenComparing(Apple::getCountry)); // æ¯”è¾ƒå™¨å¤åˆã€‚
 	}
 
 }
